@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:tortilleria_chaly/screen/home_screen/home_screen.dart';
+import 'package:tortilleria_chaly/presentation/screen/home_screen/home_screen.dart';
 
 final routerConfig = GoRouter(
   initialLocation: HomeScreen.path,

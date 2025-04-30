@@ -5,7 +5,7 @@ import 'package:tortilleria_chaly/presentation/provider/isar_conecction_provider
 import 'package:tortilleria_chaly/presentation/screen/list_client_screen/list_client_screen.dart';
 import 'package:tortilleria_chaly/presentation/screen/sales_screen/sales_screen.dart';*/
 
-part './custom_botton_navigator_bar.dart';
+part 'custom_botton_navigator_bar.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   static const path = "/HomeScreen";

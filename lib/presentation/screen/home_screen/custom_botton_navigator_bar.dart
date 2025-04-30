@@ -1,5 +1,5 @@
 
-part of './home_screen.dart';
+part of 'home_screen.dart';
 
 class _CustomBottonNavigatorBar extends StatefulWidget {
   final PageController pageController;
