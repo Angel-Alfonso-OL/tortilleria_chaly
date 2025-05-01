@@ -5,7 +5,7 @@ import 'package:tortilleria_chaly/config/colors.dart';
 import 'package:tortilleria_chaly/domain/entities/client/client.dart';
 import 'package:tortilleria_chaly/presentation/provider/client_providers/get_list_client_provider.dart';
 import 'package:tortilleria_chaly/presentation/screen/create_client_screen/create_client_screen.dart';
-//import 'package:tortilleria_chaly/presentation/screen/view_client_screen/view_client_screen.dart';
+import 'package:tortilleria_chaly/presentation/screen/view_client_screen/view_client_screen.dart';
 
 class ListClientScreen extends ConsumerWidget {
   static const path = "/ListClientScreen";
@@ -59,8 +59,8 @@ class _CustomListTileClient extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: ListTile(
         onTap: () {
-          /*context.pushNamed(ViewClientScreen.path,
-              pathParameters: {"id": "${client.clientId}"});*/
+          context.pushNamed(ViewClientScreen.path,
+              pathParameters: {"id": "${client.clientId}"});
         },
         trailing: Container(
           decoration: BoxDecoration(
