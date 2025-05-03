@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tortilleria_chaly/presentation/provider/isar_conecction_provider.dart';
+import 'package:tortilleria_chaly/presentation/screen/list_client_screen/list_client_screen.dart';
 /*import 'package:tortilleria_chaly/config/colors.dart';
 import 'package:tortilleria_chaly/presentation/provider/isar_conecction_provider.dart';
 import 'package:tortilleria_chaly/presentation/screen/list_client_screen/list_client_screen.dart';
@@ -20,7 +22,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final PageController _pageController = PageController(initialPage: 1);
 
   final List<Widget> _pagesList = [
-    //const ListClientScreen(),
+    const ListClientScreen(),
     //const SalesScreen(),
     Container(color: Colors.blue),
   ];
@@ -33,7 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-   // ref.watch(isarConnectionProvider);
+   ref.watch(isarConnectionProvider);
     return SafeArea(
       child: Scaffold(
         body: PageView(
