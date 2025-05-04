@@ -15,17 +15,19 @@ class ImpDbClient extends ClientCRUD {
   }
 
   @override
-  Future<List<Client>> getAllClients() async{
+  Future<List<Client>> getAllClients() async {
     return isarConnectivity.clients.where().findAll();
   }
 
   @override
-  Future<Client> getClientById(int id) async{
+  Future<Client> getClientById(int id) async {
     return await isarConnectivity.clients.get(id) ?? Client.defaulClient;
   }
 
   @override
-  Future<void> updateClient(Client client) async{
-    isarConnectivity.clients.put(client);
+  Future<void> updateClient(Client client) async {
+    await isarConnectivity.writeTxn(() async {
+      isarConnectivity.clients.put(client);
+    });
   }
 }
