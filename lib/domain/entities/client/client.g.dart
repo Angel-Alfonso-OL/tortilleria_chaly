@@ -88,13 +88,13 @@ Client _clientDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Client(
+    clientId: id,
     lastPay: reader.readDateTime(offsets[0]),
     lastSale: reader.readDateTime(offsets[1]),
     money: reader.readLong(offsets[2]),
     name: reader.readString(offsets[3]),
     nickName: reader.readString(offsets[4]),
   );
-  object.clientId = id;
   return object;
 }
 
@@ -128,9 +128,7 @@ List<IsarLinkBase<dynamic>> _clientGetLinks(Client object) {
   return [];
 }
 
-void _clientAttach(IsarCollection<dynamic> col, Id id, Client object) {
-  object.clientId = id;
-}
+void _clientAttach(IsarCollection<dynamic> col, Id id, Client object) {}
 
 extension ClientQueryWhereSort on QueryBuilder<Client, Client, QWhere> {
   QueryBuilder<Client, Client, QAfterWhere> anyClientId() {

@@ -11,7 +11,7 @@ class Client {
     lastPay: DateTime(2000),
     money: 0,
   );
-  Id clientId = Isar.autoIncrement;
+  final Id clientId;
   final String name;
   final String nickName;
   final DateTime lastSale;
@@ -19,10 +19,28 @@ class Client {
   final int money;
 
   Client({
+    this.clientId = Isar.autoIncrement,
     required this.name,
     required this.nickName,
     required this.lastSale,
     required this.lastPay,
     required this.money,
   });
+
+  Client copyWith({
+    String? name,
+    String? nickName,
+    DateTime? lastSale,
+    DateTime? lastPay,
+    int ? money,
+  }) {
+    return Client(
+      clientId: this.clientId,
+      name: name ?? this.name,
+      nickName: nickName ?? this.nickName,
+      lastSale: lastSale ?? this.lastSale,
+      lastPay: lastPay ?? this.lastPay,
+      money: money ?? this.money,
+    );
+  }
 }
