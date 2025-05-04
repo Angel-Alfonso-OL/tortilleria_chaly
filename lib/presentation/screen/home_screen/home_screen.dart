@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tortilleria_chaly/presentation/provider/isar_conecction_provider.dart';
 import 'package:tortilleria_chaly/presentation/screen/list_client_screen/list_client_screen.dart';
-/*import 'package:tortilleria_chaly/config/colors.dart';
-import 'package:tortilleria_chaly/presentation/provider/isar_conecction_provider.dart';
-import 'package:tortilleria_chaly/presentation/screen/list_client_screen/list_client_screen.dart';
-import 'package:tortilleria_chaly/presentation/screen/sales_screen/sales_screen.dart';*/
+import 'package:tortilleria_chaly/presentation/screen/sale_screen/sales_screen/sales_screen.dart';
+
 
 part 'custom_botton_navigator_bar.dart';
 
@@ -23,7 +21,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   final List<Widget> _pagesList = [
     const ListClientScreen(),
-    //const SalesScreen(),
+    const SalesScreen(),
     Container(color: Colors.blue),
   ];
 
