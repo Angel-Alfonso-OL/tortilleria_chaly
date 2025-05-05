@@ -134,7 +134,7 @@ class ViewClientScreen extends ConsumerWidget {
                         controller: _controller,
                         label: "Nueva Deuda",
                         textInputType: TextInputType.number,
-                        funcionValidadora: funcionesValidadoras["number"]!,
+                        funcionValidadora: InputValidator.numberValidator,
                       ),
                       const SizedBox(height: 30),
                       GestureDetector(

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String label;
   final TextInputType textInputType;
-  final Validator funcionValidadora;
+  final String? Function(String?) funcionValidadora;
   final TextEditingController controller;
 
 
