@@ -101,7 +101,7 @@ class ViewClientScreen extends ConsumerWidget {
                         height: 50,
                         child: Center(
                           child: Text(
-                            "${snapshot.data!.money.toString()}",
+                            "${snapshot.data!.money}",
                             style: const TextStyle(
                               color: darkGrey,
                               fontSize: 20,
@@ -140,11 +140,23 @@ class ViewClientScreen extends ConsumerWidget {
                       GestureDetector(
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            await ref
-                                .read(clientDbProvider)
-                                .updateClient(snapshot.data!.copyWith(
-                                  money: 200,
-                                ));
+                            if (snapshot.data!.money <
+                                int.parse(_controller.value.text)) {
+                              await ref.read(clientDbProvider).updateClient(
+                                    snapshot.data!.copyWith(
+                                      money: int.parse(_controller.value.text),
+                                      lastPay: DateTime.now(),
+                                    ),
+                                  );
+                            } else {
+                              await ref.read(clientDbProvider).updateClient(
+                                    snapshot.data!.copyWith(
+                                      money: int.parse(_controller.value.text),
+                                      lastSale: DateTime.now(),
+                                    ),
+                                  );
+                            }
+                            ref.invalidate(getClientByIdProvider);
                             ref.invalidate(getListClientProvider);
                             context.pop();
                           }

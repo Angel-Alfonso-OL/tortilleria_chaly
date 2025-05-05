@@ -32,10 +32,10 @@ class Client {
     String? nickName,
     DateTime? lastSale,
     DateTime? lastPay,
-    int ? money,
+    int? money,
   }) {
     return Client(
-      clientId: this.clientId,
+      clientId: clientId,
       name: name ?? this.name,
       nickName: nickName ?? this.nickName,
       lastSale: lastSale ?? this.lastSale,
