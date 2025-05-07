@@ -110,6 +110,7 @@ class CreateClientScreen extends ConsumerWidget {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
+                              actionsAlignment: MainAxisAlignment.spaceAround,
                               title: const SizedBox(
                                 width: double.infinity,
                                 height: 30,
@@ -157,9 +158,34 @@ class CreateClientScreen extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(_textControllerdauda.value.text),
+                                    const SizedBox(height: 20),
+                                    const SizedBox(
+                                      width: double.infinity,
+                                      height: 20,
+                                      child: Center(
+                                        child: Text(
+                                          "¿Es correcta la información?",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
+                              actions: [
+                                FilledButton(
+                                  onPressed: () {},
+                                  child: const Text("SI"),
+                                  
+                                ),
+                                FilledButton(
+                                  onPressed: () {},
+                                  child: const Text("NO"),
+                                ),
+                              ],
                             );
                           },
                         );
