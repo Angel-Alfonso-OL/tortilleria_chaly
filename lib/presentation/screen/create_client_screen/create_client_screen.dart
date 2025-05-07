@@ -106,6 +106,63 @@ class CreateClientScreen extends ConsumerWidget {
                             lastSale: DateTime.now(),
                             lastPay: DateTime.now(),
                             money: int.parse(_textControllerdauda.value.text)));
+                        await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const SizedBox(
+                                width: double.infinity,
+                                height: 30,
+                                child: const Center(
+                                  child: Text(
+                                    "CONFIRMACIÓN",
+                                    style: TextStyle(
+                                      color: darkBlue,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              content: SizedBox(
+                                width: double.infinity,
+                                height: 200,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "NOMBRE:",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(_textControllerName.value.text),
+                                    const SizedBox(height: 10),
+                                    const Text(
+                                      "APODO:",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(_textControllerNickname.value.text),
+                                    const SizedBox(height: 10),
+                                    const Text(
+                                      "DEUDA:",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(_textControllerdauda.value.text),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
                         ref.invalidate(getListClientProvider);
                         context.pop();
                       }
@@ -153,7 +210,9 @@ class CreateClientScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20,)
+                  const SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),
