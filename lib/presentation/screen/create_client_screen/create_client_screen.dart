@@ -100,12 +100,6 @@ class CreateClientScreen extends ConsumerWidget {
                   GestureDetector(
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
-                        await ref.read(clientDbProvider).createClient(Client(
-                            name: _textControllerName.value.text,
-                            nickName: _textControllerNickname.text,
-                            lastSale: DateTime.now(),
-                            lastPay: DateTime.now(),
-                            money: int.parse(_textControllerdauda.value.text)));
                         await showDialog(
                           context: context,
                           builder: (context) {
@@ -114,7 +108,7 @@ class CreateClientScreen extends ConsumerWidget {
                               title: const SizedBox(
                                 width: double.infinity,
                                 height: 30,
-                                child: const Center(
+                                child: Center(
                                   child: Text(
                                     "CONFIRMACIÓN",
                                     style: TextStyle(
@@ -177,20 +171,34 @@ class CreateClientScreen extends ConsumerWidget {
                               ),
                               actions: [
                                 FilledButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    await ref
+                                        .read(clientDbProvider)
+                                        .createClient(Client(
+                                            name:
+                                                _textControllerName.value.text,
+                                            nickName:
+                                                _textControllerNickname.text,
+                                            lastSale: DateTime.now(),
+                                            lastPay: DateTime.now(),
+                                            money: int.parse(
+                                                _textControllerdauda
+                                                    .value.text)));
+                                    ref.invalidate(getListClientProvider);
+                                    context.pop();
+                                  },
                                   child: const Text("SI"),
-                                  
                                 ),
                                 FilledButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    context.pop();
+                                  },
                                   child: const Text("NO"),
                                 ),
                               ],
                             );
                           },
                         );
-                        ref.invalidate(getListClientProvider);
-                        context.pop();
                       }
                     },
                     child: Container(
