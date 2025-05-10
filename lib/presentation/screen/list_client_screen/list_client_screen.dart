@@ -15,19 +15,25 @@ class ListClientScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
-        
         backgroundColor: darkBlue,
         title: Container(
-        //color: Colors.red,
+          //color: Colors.red,
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: const TextField(
-            
+            cursorColor: white,
+            autocorrect: false,
+            textCapitalization: TextCapitalization.words,
+            style: TextStyle(color: white),
             textAlign: TextAlign.center,
             decoration: InputDecoration(
-              labelStyle: TextStyle(color: white),
-              enabledBorder: UnderlineInputBorder(),
-              border: UnderlineInputBorder(),
-              prefix: Icon(Icons.search, color: white,)
+              hintStyle: TextStyle(color: white),
+              enabledBorder:
+                  UnderlineInputBorder(borderSide: BorderSide(color: white)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: white)),
+              prefix: Icon(
+                Icons.search,
+                color: white,
+              ),
             ),
           ),
         ),
