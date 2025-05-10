@@ -14,6 +14,24 @@ class ListClientScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return Scaffold(
+      appBar: AppBar(
+        
+        backgroundColor: darkBlue,
+        title: Container(
+        //color: Colors.red,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: const TextField(
+            
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              labelStyle: TextStyle(color: white),
+              enabledBorder: UnderlineInputBorder(),
+              border: UnderlineInputBorder(),
+              prefix: Icon(Icons.search, color: white,)
+            ),
+          ),
+        ),
+      ),
       body: FutureBuilder(
         future: ref.watch(getListClientProvider.future),
         builder: (context, snapshot) {
