@@ -29,6 +29,14 @@ class ViewClientScreen extends ConsumerWidget {
           foregroundColor: white,
           title: const Text("Información del Cliente"),
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                
+              },
+              icon: const Icon(Icons.delete),
+            ),
+          ],
         ),
         body: FutureBuilder(
           future: ref.watch(getClientByIdProvider(idClient).future),
