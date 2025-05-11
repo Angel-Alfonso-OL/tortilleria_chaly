@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tortilleria_chaly/config/colors.dart';
-import 'package:tortilleria_chaly/presentation/screen/widget/custom_text_form_field.dart';
-import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 
 part './row_bottons.dart';
 

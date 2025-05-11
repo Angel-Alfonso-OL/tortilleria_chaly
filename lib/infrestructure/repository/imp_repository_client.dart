@@ -27,4 +27,9 @@ class ImpRepositoryClient extends RepositoryClient {
   Future<void> updateClient(Client client) async{
     dataBase.updateClient(client);
   }
+  
+  @override
+  Future<void> delateClient(int id) async{
+    dataBase.delateClient(id);
+  }
 }

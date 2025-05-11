@@ -30,4 +30,12 @@ class ImpDbClient extends ClientCRUD {
       isarConnectivity.clients.put(client);
     });
   }
+  
+  
+  @override
+  Future<void> delateClient(int id) async{
+     await isarConnectivity.writeTxn(() async {
+      isarConnectivity.clients.delete(id);
+    });
+  }
 }

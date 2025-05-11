@@ -12,4 +12,7 @@ abstract class RepositoryClient{
 
   //Create
   Future<void> createClient(Client client);
+
+  //Delate
+  Future<void> delateClient(int id);
 }
