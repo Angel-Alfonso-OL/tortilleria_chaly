@@ -23,30 +23,68 @@ class ViewClientScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: darkBlue,
-          foregroundColor: white,
-          title: const Text("Información del Cliente"),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {
-                
-              },
-              icon: const Icon(Icons.delete),
+      child: FutureBuilder(
+        future: ref.watch(getClientByIdProvider(idClient).future),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: darkBlue,
+              foregroundColor: white,
+              title: const Text("Información del Cliente"),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  onPressed: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        actionsAlignment: MainAxisAlignment.spaceAround,
+                        title: const SizedBox(
+                          width: double.infinity,
+                          height: 60,
+                          child: Center(
+                            child: Text(
+                              "¿Quiere eliminar este Cliente?",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: darkBlue,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                        actions: [
+                          FilledButton(
+                            onPressed: () async {
+                              await ref
+                                  .read(clientDbProvider)
+                                  .delateClient(snapshot.data!.clientId);
+                              ref.invalidate(getListClientProvider);
+                              context.pop();
+                            },
+                            child: const Text("SI"),
+                          ),
+                          FilledButton(
+                            onPressed: () {
+                              context.pop();
+                            },
+                            child: const Text("NO"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ],
             ),
-          ],
-        ),
-        body: FutureBuilder(
-          future: ref.watch(getClientByIdProvider(idClient).future),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return Container(
+            body: Container(
               height: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
               child: SingleChildScrollView(
@@ -212,16 +250,14 @@ class ViewClientScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      )
+                      const SizedBox(height: 20)
                     ],
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
