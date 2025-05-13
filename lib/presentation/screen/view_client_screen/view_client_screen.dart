@@ -67,6 +67,7 @@ class ViewClientScreen extends ConsumerWidget {
                                   .delateClient(snapshot.data!.clientId);
                               ref.invalidate(getListClientProvider);
                               context.pop();
+                              context.pop();
                             },
                             child: const Text("SI"),
                           ),
