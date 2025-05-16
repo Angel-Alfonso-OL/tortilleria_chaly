@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tortilleria_chaly/config/colors.dart';
-import 'package:tortilleria_chaly/presentation/provider/client_providers/client_db_provider.dart';
-import 'package:tortilleria_chaly/presentation/provider/client_providers/get_client_by_id_provider.dart';
-import 'package:tortilleria_chaly/presentation/provider/client_providers/get_list_client_provider.dart';
+import 'package:tortilleria_chaly/presentation/provider/client_db_provider.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/custom_text_form_field.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 
@@ -24,7 +22,7 @@ class ViewClientScreen extends ConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: FutureBuilder(
-        future: ref.watch(getClientByIdProvider(idClient).future),
+        future: ref.watch(clientDbProvider).getClientById(idClient),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -65,7 +63,7 @@ class ViewClientScreen extends ConsumerWidget {
                               await ref
                                   .read(clientDbProvider)
                                   .delateClient(snapshot.data!.clientId);
-                              ref.invalidate(getListClientProvider);
+                              //ref.invalidate(getListClientProvider);
                               context.pop();
                               context.pop();
                             },
@@ -203,8 +201,8 @@ class ViewClientScreen extends ConsumerWidget {
                                     ),
                                   );
                             }
-                            ref.invalidate(getClientByIdProvider);
-                            ref.invalidate(getListClientProvider);
+                            //ref.invalidate(getClientByIdProvider);
+                            //ref.invalidate(getListClientProvider);
                             context.pop();
                           }
                         },

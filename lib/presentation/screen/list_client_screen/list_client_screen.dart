@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tortilleria_chaly/config/colors.dart';
 import 'package:tortilleria_chaly/domain/entities/client/client.dart';
-import 'package:tortilleria_chaly/presentation/provider/client_providers/get_list_client_provider.dart';
+import 'package:tortilleria_chaly/presentation/provider/client_db_provider.dart';
 import 'package:tortilleria_chaly/presentation/screen/create_client_screen/create_client_screen.dart';
 import 'package:tortilleria_chaly/presentation/screen/view_client_screen/view_client_screen.dart';
 
@@ -39,7 +39,7 @@ class ListClientScreen extends ConsumerWidget {
         ),
       ),
       body: FutureBuilder(
-        future: ref.watch(getListClientProvider.future),
+        future: ref.watch(clientDbProvider).getAllClients(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

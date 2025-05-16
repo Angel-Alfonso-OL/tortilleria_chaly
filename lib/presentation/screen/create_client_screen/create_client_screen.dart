@@ -5,9 +5,9 @@ import 'package:tortilleria_chaly/config/colors.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/custom_text_form_field.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 import 'package:tortilleria_chaly/domain/entities/client/client.dart';
-import 'package:tortilleria_chaly/presentation/provider/client_providers/client_db_provider.dart';
+import 'package:tortilleria_chaly/presentation/provider/client_db_provider.dart';
 import 'package:tortilleria_chaly/presentation/provider/isar_conecction_provider.dart';
-import 'package:tortilleria_chaly/presentation/provider/client_providers/get_list_client_provider.dart';
+
 
 part './confirmation_dialog.dart';
 
