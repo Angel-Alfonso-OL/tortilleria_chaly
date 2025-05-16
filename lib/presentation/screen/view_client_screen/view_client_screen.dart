@@ -201,8 +201,7 @@ class ViewClientScreen extends ConsumerWidget {
                                     ),
                                   );
                             }
-                            //ref.invalidate(getClientByIdProvider);
-                            //ref.invalidate(getListClientProvider);
+                            ref.invalidate(clientDbProvider);
                             context.pop();
                           }
                         },

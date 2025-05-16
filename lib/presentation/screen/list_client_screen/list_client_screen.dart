@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -51,12 +52,14 @@ class ListClientScreen extends ConsumerWidget {
               child: Text("No Existe Ningun Registro"),
             );
           }
-          return ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (_, index) => _CustomListTileClient(
-              val: (index % 2) == 0 ? true : false,
-              client: snapshot.data![index],
+          return FadeInUp(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (_, index) => _CustomListTileClient(
+                val: (index % 2) == 0 ? true : false,
+                client: snapshot.data![index],
+              ),
             ),
           );
         },

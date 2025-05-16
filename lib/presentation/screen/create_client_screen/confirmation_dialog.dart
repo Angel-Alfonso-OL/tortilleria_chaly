@@ -91,7 +91,7 @@ class ConfirmationDialog extends ConsumerWidget {
                 lastSale: DateTime.now(),
                 lastPay: DateTime.now(),
                 money: int.parse(_textControllerdauda.value.text)));
-            ref.read(clientDbProvider).getAllClients();
+            ref.invalidate(clientDbProvider);
             context.pop();
             context.pop();
           },
