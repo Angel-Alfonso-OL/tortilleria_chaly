@@ -21,7 +21,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   final List<Widget> _pagesList = [
     const ListClientScreen(),
-    const SalesScreen(),
+    SalesScreen(),
     Container(color: Colors.blue),
   ];
 
