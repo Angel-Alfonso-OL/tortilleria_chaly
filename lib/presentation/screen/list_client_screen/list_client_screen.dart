@@ -44,7 +44,7 @@ class ListClientScreen extends ConsumerWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+            
             );
           }
           if (snapshot.data!.isEmpty || snapshot.data == null) {

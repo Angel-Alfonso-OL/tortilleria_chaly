@@ -63,7 +63,7 @@ class ViewClientScreen extends ConsumerWidget {
                               await ref
                                   .read(clientDbProvider)
                                   .delateClient(snapshot.data!.clientId);
-                              //ref.invalidate(getListClientProvider);
+                              ref.invalidate(clientDbProvider);
                               context.pop();
                               context.pop();
                             },

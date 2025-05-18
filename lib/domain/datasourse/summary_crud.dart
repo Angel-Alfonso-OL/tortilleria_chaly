@@ -2,15 +2,17 @@ import 'package:tortilleria_chaly/domain/entities/summary/summary.dart';
 
 abstract class SummaryCRUD {
   //Selected
-  Summary getSummaryById(int id);
-  List<Summary> getAllSummary();
+  
+  Future<Summary> getSummaryById(int id);
+  
+  Future<List<Summary>> getAllSummary();
 
   //Update
-  void updateSummary(Summary client);
+  Future<void> updateSummary(Summary value);
 
   //Create
-  void createSummary(Summary client);
+  Future<void> createSummary(Summary value);
 
   //Delete
-  void deleteSummary();
+  Future<void> deleteSummary(int id);
 }
