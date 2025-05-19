@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tortilleria_chaly/config/colors.dart';
+import 'package:tortilleria_chaly/domain/entities/summary/summary.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/custom_text_form_field.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 
 part './row_bottons.dart';
 
-class SalesScreen extends StatelessWidget {
+class SalesScreen extends ConsumerWidget {
   final _controllerTortillasHechas = TextEditingController();
   final _controllerTortillasSobrantes = TextEditingController();
   final _controllerTortillasVenidasEspeciales = TextEditingController();
@@ -13,7 +15,9 @@ class SalesScreen extends StatelessWidget {
   SalesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -41,6 +45,7 @@ class SalesScreen extends StatelessWidget {
                 textInputType: TextInputType.number,
                 funcionValidadora: InputValidator.numberValidator,
               ),
+              const SizedBox(height: 15),
               CustomTextFormField(
                 controller: _controllerTortillasSobrantes,
                 label: "Tortillas Sobrantes",
@@ -64,6 +69,7 @@ class SalesScreen extends StatelessWidget {
                 textInputType: TextInputType.number,
                 funcionValidadora: InputValidator.numberValidator,
               ),
+              const SizedBox(height: 15),
               CustomTextFormField(
                 controller: _controllerTortillasVenidasTiendas,
                 label: "En Tiendas",

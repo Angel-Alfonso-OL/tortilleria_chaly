@@ -185,8 +185,8 @@ class ViewClientScreen extends ConsumerWidget {
                       GestureDetector(
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            if (snapshot.data!.money <
-                                int.parse(_controller.value.text)) {
+                            if (int.parse(_controller.value.text) <=
+                                snapshot.data!.money) {
                               await ref.read(clientDbProvider).updateClient(
                                     snapshot.data!.copyWith(
                                       money: int.parse(_controller.value.text),
