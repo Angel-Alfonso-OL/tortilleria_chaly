@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tortilleria_chaly/config/colors.dart';
 import 'package:tortilleria_chaly/domain/entities/summary/summary.dart';
+import 'package:tortilleria_chaly/presentation/provider/summary_db_provider.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/custom_text_form_field.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 
@@ -14,10 +15,25 @@ class SalesScreen extends ConsumerWidget {
   final _controllerTortillasVenidasTiendas = TextEditingController();
   SalesScreen({super.key});
 
+  Future<void> a(WidgetRef ref) async {
+    final a = await ref.read(summaryDbProvider).getAllSummary();
+    if (a[a.length - 1].date.day != DateTime.now().day) {
+      await ref.read(summaryDbProvider).createSummary(Summary(
+            tortillasHechas: 0,
+            tortillasSobrantes: 0,
+            tortillasVendidas: 0,
+            tortillasVendidasEspeciales: 0,
+            tortillasVendidasTienda: 0,
+            totalFiados: 0,
+            totalPagados: 0,
+            date: DateTime.now(),
+          ));
+    }
+  }
+
   @override
   Widget build(BuildContext context, ref) {
-
-
+    a(ref);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
