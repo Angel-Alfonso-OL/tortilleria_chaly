@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tortilleria_chaly/config/custom_theme.dart';
 import 'package:tortilleria_chaly/config/custom_theme_dark.dart';
 import 'package:tortilleria_chaly/config/router.dart';
+import 'package:tortilleria_chaly/presentation/provider/isar_conecction_provider.dart';
 
 void main() {
   runApp(
@@ -12,10 +13,11 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    
     return MaterialApp.router(
       themeMode: ThemeMode.light,
       routerConfig: routerConfig,
