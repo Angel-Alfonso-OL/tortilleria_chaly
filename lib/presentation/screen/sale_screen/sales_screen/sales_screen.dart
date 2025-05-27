@@ -17,23 +17,40 @@ class SalesScreen extends ConsumerWidget {
 
   Future<void> a(WidgetRef ref) async {
     final a = await ref.read(summaryDbProvider).getAllSummary();
-    if (a[a.length - 1].date.day != DateTime.now().day) {
-      await ref.read(summaryDbProvider).createSummary(Summary(
-            tortillasHechas: 0,
-            tortillasSobrantes: 0,
-            tortillasVendidas: 0,
-            tortillasVendidasEspeciales: 0,
-            tortillasVendidasTienda: 0,
-            totalFiados: 0,
-            totalPagados: 0,
-            date: DateTime.now(),
-          ));
+    if (a.isNotEmpty) {
+      if (a[a.length - 1].date.day != DateTime.now().day) {
+        await ref.read(summaryDbProvider).createSummary(
+              Summary(
+                tortillasHechas: 0,
+                tortillasSobrantes: 0,
+                tortillasVendidas: 0,
+                tortillasVendidasEspeciales: 0,
+                tortillasVendidasTienda: 0,
+                totalFiados: 0,
+                totalPagados: 0,
+                date: DateTime.now(),
+              ),
+            );
+      }
+    } else {
+      await ref.read(summaryDbProvider).createSummary(
+            Summary(
+              tortillasHechas: 0,
+              tortillasSobrantes: 0,
+              tortillasVendidas: 0,
+              tortillasVendidasEspeciales: 0,
+              tortillasVendidasTienda: 0,
+              totalFiados: 0,
+              totalPagados: 0,
+              date: DateTime.now(),
+            ),
+          );
     }
   }
 
   @override
   Widget build(BuildContext context, ref) {
-    //a(ref);
+    a(ref);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
