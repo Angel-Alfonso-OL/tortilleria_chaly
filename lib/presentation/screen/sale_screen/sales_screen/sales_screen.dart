@@ -33,7 +33,7 @@ class SalesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    a(ref);
+    //a(ref);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

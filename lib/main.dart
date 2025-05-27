@@ -13,11 +13,10 @@ void main() {
   );
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
-  Widget build(BuildContext context, ref) {
-    
+  Widget build(BuildContext context) {
     return MaterialApp.router(
       themeMode: ThemeMode.light,
       routerConfig: routerConfig,
