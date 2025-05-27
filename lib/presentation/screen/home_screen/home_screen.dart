@@ -25,12 +25,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     SalesScreen(),
     Container(color: Colors.blue),
   ];
-  @override
-  initState() {
-    ref.watch(isarConnectionProvider);
-    //a(ref);
-  }
-
+  
   Future<void> a(WidgetRef ref) async {
     final a = await ref.read(summaryDbProvider).getAllSummary();
     if (a[a.length - 1].date.day != DateTime.now().day) {

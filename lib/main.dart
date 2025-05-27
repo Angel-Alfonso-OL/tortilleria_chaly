@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tortilleria Chaly',
       theme: customTheme,
-      //darkTheme: customThemeDark,
+      darkTheme: customThemeDark,
     );
   }
 }
