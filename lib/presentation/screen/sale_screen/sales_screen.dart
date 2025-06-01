@@ -16,12 +16,13 @@ class SalesScreen extends ConsumerStatefulWidget {
 }
 
 class _SalesScreenState extends ConsumerState<SalesScreen> {
-
   late TextEditingController _controllerTortillasHechas;
   late TextEditingController _controllerTortillasSobrantes;
   late TextEditingController _controllerTortillasVenidasEspeciales;
   late TextEditingController _controllerTortillasVenidasTiendas;
   late Summary summary;
+
+
 
   Future<void> updateSummary(WidgetRef ref) async {
     final a = await ref.read(summaryDbProvider).getAllSummary();
@@ -67,73 +68,78 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    //updateSummary(ref);
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Container(
-        height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 15),
-              const Text(
-                "Cantidad de Tortillas",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: darkBlue,
-                ),
+      child: FutureBuilder(
+        future: updateSummary(ref),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+          return Container(
+            height: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  const Text(
+                    "Cantidad de Tortillas",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: darkBlue,
+                    ),
+                  ),
+                  const Divider(color: darkBlue),
+                  const SizedBox(height: 15),
+                  CustomTextFormField(
+                    controller: _controllerTortillasHechas,
+                    label: "Tortillas Hechas",
+                    textInputType: TextInputType.number,
+                    funcionValidadora: InputValidator.numberValidator,
+                  ),
+                  const SizedBox(height: 15),
+                  CustomTextFormField(
+                    controller: _controllerTortillasSobrantes,
+                    label: "Tortillas Sobrantes",
+                    textInputType: TextInputType.number,
+                    funcionValidadora: InputValidator.numberValidator,
+                  ),
+                  const SizedBox(height: 50),
+                  const Text(
+                    "Tortillas Vendidas",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: darkBlue,
+                    ),
+                  ),
+                  const Divider(color: darkBlue),
+                  const SizedBox(height: 15),
+                  CustomTextFormField(
+                    controller: _controllerTortillasVenidasEspeciales,
+                    label: "Especiales",
+                    textInputType: TextInputType.number,
+                    funcionValidadora: InputValidator.numberValidator,
+                  ),
+                  const SizedBox(height: 15),
+                  CustomTextFormField(
+                    controller: _controllerTortillasVenidasTiendas,
+                    label: "En Tiendas",
+                    textInputType: TextInputType.number,
+                    funcionValidadora: InputValidator.numberValidator,
+                  ),
+                  const SizedBox(height: 30),
+                  const _RowBottons(),
+                ],
               ),
-              const Divider(color: darkBlue),
-              const SizedBox(height: 15),
-              CustomTextFormField(
-                controller: _controllerTortillasHechas,
-                label: "Tortillas Hechas",
-                textInputType: TextInputType.number,
-                funcionValidadora: InputValidator.numberValidator,
-              ),
-              const SizedBox(height: 15),
-              CustomTextFormField(
-                controller: _controllerTortillasSobrantes,
-                label: "Tortillas Sobrantes",
-                textInputType: TextInputType.number,
-                funcionValidadora: InputValidator.numberValidator,
-              ),
-              const SizedBox(height: 50),
-              const Text(
-                "Tortillas Vendidas",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: darkBlue,
-                ),
-              ),
-              const Divider(color: darkBlue),
-              const SizedBox(height: 15),
-              CustomTextFormField(
-                controller: _controllerTortillasVenidasEspeciales,
-                label: "Especiales",
-                textInputType: TextInputType.number,
-                funcionValidadora: InputValidator.numberValidator,
-              ),
-              const SizedBox(height: 15),
-              CustomTextFormField(
-                controller: _controllerTortillasVenidasTiendas,
-                label: "En Tiendas",
-                textInputType: TextInputType.number,
-                funcionValidadora: InputValidator.numberValidator,
-              ),
-              const SizedBox(height: 30),
-              const _RowBottons(),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
