@@ -1,4 +1,4 @@
-part of './sales_screen.dart';
+part of 'sales_screen.dart';
 
 class _RowBottons extends StatelessWidget {
   const _RowBottons();

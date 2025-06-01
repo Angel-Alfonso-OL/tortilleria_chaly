@@ -6,15 +6,22 @@ import 'package:tortilleria_chaly/presentation/provider/summary_db_provider.dart
 import 'package:tortilleria_chaly/presentation/screen/widget/custom_text_form_field.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 
-part './row_bottons.dart';
+part 'row_bottons.dart';
 
-class SalesScreen extends ConsumerWidget {
+class SalesScreen extends ConsumerStatefulWidget {
+  SalesScreen({super.key});
+
+  @override
+  _SalesScreenState createState() => _SalesScreenState();
+}
+
+class _SalesScreenState extends ConsumerState<SalesScreen> {
+
   late TextEditingController _controllerTortillasHechas;
   late TextEditingController _controllerTortillasSobrantes;
   late TextEditingController _controllerTortillasVenidasEspeciales;
   late TextEditingController _controllerTortillasVenidasTiendas;
   late Summary summary;
-  SalesScreen({super.key});
 
   Future<void> updateSummary(WidgetRef ref) async {
     final a = await ref.read(summaryDbProvider).getAllSummary();
@@ -48,16 +55,22 @@ class SalesScreen extends ConsumerWidget {
           );
     }
     final listSummary = await ref.read(summaryDbProvider).getAllSummary();
-    summary = listSummary[listSummary.length-1];
-    _controllerTortillasHechas = TextEditingController(text:summary.tortillasHechas.toString());
-    _controllerTortillasSobrantes = TextEditingController(text:summary.tortillasSobrantes.toString());
-    _controllerTortillasVenidasEspeciales = TextEditingController(text:summary.tortillasVendidasEspeciales.toString());
-    _controllerTortillasVenidasTiendas = TextEditingController(text:summary.tortillasVendidasTienda.toString());
+    summary = listSummary[listSummary.length - 1];
+    _controllerTortillasHechas =
+        TextEditingController(text: summary.tortillasHechas.toString());
+    _controllerTortillasSobrantes =
+        TextEditingController(text: summary.tortillasSobrantes.toString());
+    _controllerTortillasVenidasEspeciales = TextEditingController(
+        text: summary.tortillasVendidasEspeciales.toString());
+    _controllerTortillasVenidasTiendas =
+        TextEditingController(text: summary.tortillasVendidasTienda.toString());
   }
 
   @override
-  Widget build(BuildContext context, ref) {
-    updateSummary(ref);
+  Widget build(
+    BuildContext context,
+  ) {
+    //updateSummary(ref);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
