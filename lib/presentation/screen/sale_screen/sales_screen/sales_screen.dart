@@ -9,13 +9,14 @@ import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dar
 part './row_bottons.dart';
 
 class SalesScreen extends ConsumerWidget {
-  final _controllerTortillasHechas = TextEditingController();
-  final _controllerTortillasSobrantes = TextEditingController();
-  final _controllerTortillasVenidasEspeciales = TextEditingController();
-  final _controllerTortillasVenidasTiendas = TextEditingController();
+  late TextEditingController _controllerTortillasHechas;
+  late TextEditingController _controllerTortillasSobrantes;
+  late TextEditingController _controllerTortillasVenidasEspeciales;
+  late TextEditingController _controllerTortillasVenidasTiendas;
+  late Summary summary;
   SalesScreen({super.key});
 
-  Future<void> a(WidgetRef ref) async {
+  Future<void> updateSummary(WidgetRef ref) async {
     final a = await ref.read(summaryDbProvider).getAllSummary();
     if (a.isNotEmpty) {
       if (a[a.length - 1].date.day != DateTime.now().day) {
@@ -46,11 +47,17 @@ class SalesScreen extends ConsumerWidget {
             ),
           );
     }
+    final listSummary = await ref.read(summaryDbProvider).getAllSummary();
+    summary = listSummary[listSummary.length-1];
+    _controllerTortillasHechas = TextEditingController(text:summary.tortillasHechas.toString());
+    _controllerTortillasSobrantes = TextEditingController(text:summary.tortillasSobrantes.toString());
+    _controllerTortillasVenidasEspeciales = TextEditingController(text:summary.tortillasVendidasEspeciales.toString());
+    _controllerTortillasVenidasTiendas = TextEditingController(text:summary.tortillasVendidasTienda.toString());
   }
 
   @override
   Widget build(BuildContext context, ref) {
-    a(ref);
+    updateSummary(ref);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

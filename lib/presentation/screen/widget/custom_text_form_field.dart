@@ -6,7 +6,6 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?) funcionValidadora;
   final TextEditingController controller;
 
-
   const CustomTextFormField({
     super.key,
     required this.controller,
