@@ -59,8 +59,8 @@ class SalesScreen extends ConsumerWidget {
         TextEditingController(text: lastSummary.tortillasSobrantes.toString());
     _controllerTortillasVenidasEspeciales = TextEditingController(
         text: lastSummary.tortillasVendidasEspeciales.toString());
-    _controllerTortillasVenidasTiendas =
-        TextEditingController(text: lastSummary.tortillasVendidasTienda.toString());
+    _controllerTortillasVenidasTiendas = TextEditingController(
+        text: lastSummary.tortillasVendidasTienda.toString());
   }
 
   @override
@@ -98,7 +98,13 @@ class SalesScreen extends ConsumerWidget {
                   const SizedBox(height: 15),
                   CustomTextFormField(
                     onChanage: (p0) {
-                      ref.read(summaryDbProvider).updateSummary(lastSummary.copyWith(tortillasHechas: int.parse(p0)));
+                      if (InputValidator.numberValidator(p0) == null) {
+                        ref.read(summaryDbProvider).updateSummary(
+                              lastSummary.copyWith(
+                                tortillasHechas: int.parse(p0),
+                              ),
+                            );
+                      }
                     },
                     controller: _controllerTortillasHechas,
                     label: "Tortillas Hechas",
@@ -108,7 +114,13 @@ class SalesScreen extends ConsumerWidget {
                   const SizedBox(height: 15),
                   CustomTextFormField(
                     onChanage: (p0) {
-                      ref.read(summaryDbProvider).updateSummary(lastSummary.copyWith(tortillasSobrantes: int.parse(p0)));
+                      if (InputValidator.numberValidator(p0) == null) {
+                        ref.read(summaryDbProvider).updateSummary(
+                              lastSummary.copyWith(
+                                tortillasSobrantes: int.parse(p0),
+                              ),
+                            );
+                      }
                     },
                     controller: _controllerTortillasSobrantes,
                     label: "Tortillas Sobrantes",
@@ -128,7 +140,13 @@ class SalesScreen extends ConsumerWidget {
                   const SizedBox(height: 15),
                   CustomTextFormField(
                     onChanage: (p0) {
-                      ref.read(summaryDbProvider).updateSummary(lastSummary.copyWith(tortillasVendidasEspeciales: int.parse(p0)));
+                      if (InputValidator.numberValidator(p0) == null) {
+                        ref.read(summaryDbProvider).updateSummary(
+                              lastSummary.copyWith(
+                                tortillasVendidasEspeciales: int.parse(p0),
+                              ),
+                            );
+                      }
                     },
                     controller: _controllerTortillasVenidasEspeciales,
                     label: "Especiales",
@@ -138,7 +156,13 @@ class SalesScreen extends ConsumerWidget {
                   const SizedBox(height: 15),
                   CustomTextFormField(
                     onChanage: (p0) {
-                      ref.read(summaryDbProvider).updateSummary(lastSummary.copyWith(tortillasVendidasTienda: int.parse(p0)));
+                      if (InputValidator.numberValidator(p0) == null) {
+                        ref.read(summaryDbProvider).updateSummary(
+                              lastSummary.copyWith(
+                                tortillasVendidasTienda: int.parse(p0),
+                              ),
+                            );
+                      }
                     },
                     controller: _controllerTortillasVenidasTiendas,
                     label: "En Tiendas",
