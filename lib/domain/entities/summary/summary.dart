@@ -37,7 +37,7 @@ class Summary {
     required this.date,
   });
 
-  Summary copyWith(
+  Summary copyWith({
     DateTime? date,
     int? tortillasHechas,
     int? tortillasSobrantes,
@@ -46,7 +46,7 @@ class Summary {
     int? tortillasVendidasEspeciales,
     int? totalFiados,
     int? totalPagados,
-  ) {
+  }) {
     return Summary(
       id: id,
       totalFiados: totalFiados ?? this.totalFiados,

@@ -30,7 +30,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       future: ref.watch(isarConnectionProvider).openDB(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: CircularProgressIndicator(),
+          );
         }
         return SafeArea(
           child: Scaffold(

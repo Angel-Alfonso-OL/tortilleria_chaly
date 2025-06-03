@@ -5,6 +5,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final String? Function(String?) funcionValidadora;
   final TextEditingController controller;
+  final void Function(String)? onChanage;
 
   const CustomTextFormField({
     super.key,
@@ -12,10 +13,12 @@ class CustomTextFormField extends StatelessWidget {
     required this.label,
     required this.textInputType,
     required this.funcionValidadora,
+    this.onChanage,
   });
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanage,
       controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textCapitalization: TextCapitalization.words,

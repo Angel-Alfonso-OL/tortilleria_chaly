@@ -8,25 +8,20 @@ import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dar
 
 part 'row_bottons.dart';
 
-class SalesScreen extends ConsumerStatefulWidget {
-  SalesScreen({super.key});
-
-  @override
-  _SalesScreenState createState() => _SalesScreenState();
-}
-
-class _SalesScreenState extends ConsumerState<SalesScreen> {
+class SalesScreen extends ConsumerWidget {
   late TextEditingController _controllerTortillasHechas;
   late TextEditingController _controllerTortillasSobrantes;
   late TextEditingController _controllerTortillasVenidasEspeciales;
   late TextEditingController _controllerTortillasVenidasTiendas;
-  late Summary summary;
+  late Summary lastSummary;
 
-
+  SalesScreen({super.key});
 
   Future<void> updateSummary(WidgetRef ref) async {
     final a = await ref.read(summaryDbProvider).getAllSummary();
+    //Si la lista no esta vacia
     if (a.isNotEmpty) {
+      // Si la ultima fecha es diferente a la actual
       if (a[a.length - 1].date.day != DateTime.now().day) {
         await ref.read(summaryDbProvider).createSummary(
               Summary(
@@ -41,6 +36,7 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
               ),
             );
       }
+      //Si la lista esta vacia
     } else {
       await ref.read(summaryDbProvider).createSummary(
             Summary(
@@ -56,19 +52,19 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
           );
     }
     final listSummary = await ref.read(summaryDbProvider).getAllSummary();
-    summary = listSummary[listSummary.length - 1];
+    lastSummary = listSummary[listSummary.length - 1];
     _controllerTortillasHechas =
-        TextEditingController(text: summary.tortillasHechas.toString());
+        TextEditingController(text: lastSummary.tortillasHechas.toString());
     _controllerTortillasSobrantes =
-        TextEditingController(text: summary.tortillasSobrantes.toString());
+        TextEditingController(text: lastSummary.tortillasSobrantes.toString());
     _controllerTortillasVenidasEspeciales = TextEditingController(
-        text: summary.tortillasVendidasEspeciales.toString());
+        text: lastSummary.tortillasVendidasEspeciales.toString());
     _controllerTortillasVenidasTiendas =
-        TextEditingController(text: summary.tortillasVendidasTienda.toString());
+        TextEditingController(text: lastSummary.tortillasVendidasTienda.toString());
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -77,7 +73,11 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
         future: updateSummary(ref),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: CircularProgressIndicator(),
+            );
           }
           return Container(
             height: double.infinity,
@@ -97,6 +97,9 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
                   const Divider(color: darkBlue),
                   const SizedBox(height: 15),
                   CustomTextFormField(
+                    onChanage: (p0) {
+                      ref.read(summaryDbProvider).updateSummary(lastSummary.copyWith(tortillasHechas: int.parse(p0)));
+                    },
                     controller: _controllerTortillasHechas,
                     label: "Tortillas Hechas",
                     textInputType: TextInputType.number,
@@ -104,6 +107,9 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
                   ),
                   const SizedBox(height: 15),
                   CustomTextFormField(
+                    onChanage: (p0) {
+                      ref.read(summaryDbProvider).updateSummary(lastSummary.copyWith(tortillasSobrantes: int.parse(p0)));
+                    },
                     controller: _controllerTortillasSobrantes,
                     label: "Tortillas Sobrantes",
                     textInputType: TextInputType.number,
@@ -121,6 +127,9 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
                   const Divider(color: darkBlue),
                   const SizedBox(height: 15),
                   CustomTextFormField(
+                    onChanage: (p0) {
+                      ref.read(summaryDbProvider).updateSummary(lastSummary.copyWith(tortillasVendidasEspeciales: int.parse(p0)));
+                    },
                     controller: _controllerTortillasVenidasEspeciales,
                     label: "Especiales",
                     textInputType: TextInputType.number,
@@ -128,6 +137,9 @@ class _SalesScreenState extends ConsumerState<SalesScreen> {
                   ),
                   const SizedBox(height: 15),
                   CustomTextFormField(
+                    onChanage: (p0) {
+                      ref.read(summaryDbProvider).updateSummary(lastSummary.copyWith(tortillasVendidasTienda: int.parse(p0)));
+                    },
                     controller: _controllerTortillasVenidasTiendas,
                     label: "En Tiendas",
                     textInputType: TextInputType.number,
