@@ -79,99 +79,104 @@ class SalesScreen extends ConsumerWidget {
               child: CircularProgressIndicator(),
             );
           }
-          return Container(
-            height: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  const Text(
-                    "Cantidad de Tortillas",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: darkBlue,
+          return Scaffold(
+            appBar: AppBar(
+              
+            ),
+            body: Container(
+              height: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 15),
+                    const Text(
+                      "Cantidad de Tortillas",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: darkBlue,
+                      ),
                     ),
-                  ),
-                  const Divider(color: darkBlue),
-                  const SizedBox(height: 15),
-                  CustomTextFormField(
-                    onChanage: (p0) {
-                      if (InputValidator.numberValidator(p0) == null) {
-                        ref.read(summaryDbProvider).updateSummary(
-                              lastSummary.copyWith(
-                                tortillasHechas: int.parse(p0),
-                              ),
-                            );
-                      }
-                    },
-                    controller: _controllerTortillasHechas,
-                    label: "Tortillas Hechas",
-                    textInputType: TextInputType.number,
-                    funcionValidadora: InputValidator.numberValidator,
-                  ),
-                  const SizedBox(height: 15),
-                  CustomTextFormField(
-                    onChanage: (p0) {
-                      if (InputValidator.numberValidator(p0) == null) {
-                        ref.read(summaryDbProvider).updateSummary(
-                              lastSummary.copyWith(
-                                tortillasSobrantes: int.parse(p0),
-                              ),
-                            );
-                      }
-                    },
-                    controller: _controllerTortillasSobrantes,
-                    label: "Tortillas Sobrantes",
-                    textInputType: TextInputType.number,
-                    funcionValidadora: InputValidator.numberValidator,
-                  ),
-                  const SizedBox(height: 50),
-                  const Text(
-                    "Tortillas Vendidas",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: darkBlue,
+                    const Divider(color: darkBlue),
+                    const SizedBox(height: 15),
+                    CustomTextFormField(
+                      onChanage: (p0) {
+                        if (InputValidator.numberValidator(p0) == null) {
+                          ref.read(summaryDbProvider).updateSummary(
+                                lastSummary.copyWith(
+                                  tortillasHechas: int.parse(p0),
+                                ),
+                              );
+                        }
+                      },
+                      controller: _controllerTortillasHechas,
+                      label: "Tortillas Hechas",
+                      textInputType: TextInputType.number,
+                      funcionValidadora: InputValidator.numberValidator,
                     ),
-                  ),
-                  const Divider(color: darkBlue),
-                  const SizedBox(height: 15),
-                  CustomTextFormField(
-                    onChanage: (p0) {
-                      if (InputValidator.numberValidator(p0) == null) {
-                        ref.read(summaryDbProvider).updateSummary(
-                              lastSummary.copyWith(
-                                tortillasVendidasEspeciales: int.parse(p0),
-                              ),
-                            );
-                      }
-                    },
-                    controller: _controllerTortillasVenidasEspeciales,
-                    label: "Especiales",
-                    textInputType: TextInputType.number,
-                    funcionValidadora: InputValidator.numberValidator,
-                  ),
-                  const SizedBox(height: 15),
-                  CustomTextFormField(
-                    onChanage: (p0) {
-                      if (InputValidator.numberValidator(p0) == null) {
-                        ref.read(summaryDbProvider).updateSummary(
-                              lastSummary.copyWith(
-                                tortillasVendidasTienda: int.parse(p0),
-                              ),
-                            );
-                      }
-                    },
-                    controller: _controllerTortillasVenidasTiendas,
-                    label: "En Tiendas",
-                    textInputType: TextInputType.number,
-                    funcionValidadora: InputValidator.numberValidator,
-                  ),
-                  const SizedBox(height: 30),
-                  const _RowBottons(),
-                ],
+                    const SizedBox(height: 15),
+                    CustomTextFormField(
+                      onChanage: (p0) {
+                        if (InputValidator.numberValidator(p0) == null) {
+                          ref.read(summaryDbProvider).updateSummary(
+                                lastSummary.copyWith(
+                                  tortillasSobrantes: int.parse(p0),
+                                ),
+                              );
+                        }
+                      },
+                      controller: _controllerTortillasSobrantes,
+                      label: "Tortillas Sobrantes",
+                      textInputType: TextInputType.number,
+                      funcionValidadora: InputValidator.numberValidator,
+                    ),
+                    const SizedBox(height: 50),
+                    const Text(
+                      "Tortillas Vendidas",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: darkBlue,
+                      ),
+                    ),
+                    const Divider(color: darkBlue),
+                    const SizedBox(height: 15),
+                    CustomTextFormField(
+                      onChanage: (p0) {
+                        if (InputValidator.numberValidator(p0) == null) {
+                          ref.read(summaryDbProvider).updateSummary(
+                                lastSummary.copyWith(
+                                  tortillasVendidasEspeciales: int.parse(p0),
+                                ),
+                              );
+                        }
+                      },
+                      controller: _controllerTortillasVenidasEspeciales,
+                      label: "Especiales",
+                      textInputType: TextInputType.number,
+                      funcionValidadora: InputValidator.numberValidator,
+                    ),
+                    const SizedBox(height: 15),
+                    CustomTextFormField(
+                      onChanage: (p0) {
+                        if (InputValidator.numberValidator(p0) == null) {
+                          ref.read(summaryDbProvider).updateSummary(
+                                lastSummary.copyWith(
+                                  tortillasVendidasTienda: int.parse(p0),
+                                ),
+                              );
+                        }
+                      },
+                      controller: _controllerTortillasVenidasTiendas,
+                      label: "En Tiendas",
+                      textInputType: TextInputType.number,
+                      funcionValidadora: InputValidator.numberValidator,
+                    ),
+                    const SizedBox(height: 30),
+                    const _RowBottons(),
+                  ],
+                ),
               ),
             ),
           );

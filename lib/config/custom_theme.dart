@@ -3,7 +3,10 @@ import 'package:tortilleria_chaly/config/colors.dart';
 
 final customTheme = ThemeData(
   useMaterial3: true,
-
+  appBarTheme: const AppBarTheme(
+    backgroundColor: darkBlue,
+    foregroundColor: darkBlue,
+  ),
   //BottomNavigationBarThemeData
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: darkBlue,

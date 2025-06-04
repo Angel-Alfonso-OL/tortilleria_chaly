@@ -4,7 +4,7 @@ part 'summary.g.dart';
 
 @collection
 class Summary {
-  final Id id = Isar.autoIncrement;
+  final Id id;
   final DateTime date;
   final int tortillasHechas;
   final int tortillasSobrantes;
@@ -26,7 +26,7 @@ class Summary {
   );
 
   Summary({
-    Id id = Isar.autoIncrement,
+    this.id = Isar.autoIncrement,
     required this.totalFiados,
     required this.totalPagados,
     required this.tortillasHechas,
