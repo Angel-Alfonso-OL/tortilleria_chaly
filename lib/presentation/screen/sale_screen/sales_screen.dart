@@ -52,7 +52,7 @@ class SalesScreen extends ConsumerWidget {
           );
     }
     final listSummary = await ref.read(summaryDbProvider).getAllSummary();
-    lastSummary = listSummary[listSummary.length - 1];
+    lastSummary = listSummary.last;
     _controllerTortillasHechas =
         TextEditingController(text: lastSummary.tortillasHechas.toString());
     _controllerTortillasSobrantes =
@@ -81,7 +81,13 @@ class SalesScreen extends ConsumerWidget {
           }
           return Scaffold(
             appBar: AppBar(
-              
+              actions: const [
+                Icon(
+                  Icons.refresh,
+                  color: white,
+                ),
+                SizedBox(width: 20),
+              ],
             ),
             body: Container(
               height: double.infinity,
@@ -131,7 +137,7 @@ class SalesScreen extends ConsumerWidget {
                       textInputType: TextInputType.number,
                       funcionValidadora: InputValidator.numberValidator,
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 30),
                     const Text(
                       "Tortillas Vendidas",
                       style: TextStyle(
