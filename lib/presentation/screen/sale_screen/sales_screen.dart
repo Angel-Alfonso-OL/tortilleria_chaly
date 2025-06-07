@@ -82,15 +82,6 @@ class SalesScreen extends ConsumerWidget {
             );
           }
           return Scaffold(
-            appBar: AppBar(
-              actions: const [
-                Icon(
-                  Icons.refresh,
-                  color: white,
-                ),
-                SizedBox(width: 20),
-              ],
-            ),
             body: Container(
               height: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
