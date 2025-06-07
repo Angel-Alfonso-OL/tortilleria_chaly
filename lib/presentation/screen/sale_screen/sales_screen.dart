@@ -10,19 +10,21 @@ part 'row_bottons.dart';
 
 class SalesScreen extends ConsumerWidget {
   late TextEditingController _controllerTortillasHechas;
-  late TextEditingController _controllerTortillasSobrantes;
-  late TextEditingController _controllerTortillasVenidasEspeciales;
-  late TextEditingController _controllerTortillasVenidasTiendas;
-  late Summary lastSummary;
 
-  SalesScreen({super.key});
+  late TextEditingController _controllerTortillasSobrantes;
+
+  late TextEditingController _controllerTortillasVenidasEspeciales;
+
+  late TextEditingController _controllerTortillasVenidasTiendas;
+
+  late Summary lastSummary;
 
   Future<void> updateSummary(WidgetRef ref) async {
     final a = await ref.read(summaryDbProvider).getAllSummary();
     //Si la lista no esta vacia
     if (a.isNotEmpty) {
       // Si la ultima fecha es diferente a la actual
-      if (a[a.length - 1].date.day != DateTime.now().day) {
+      if (a.last.date.day != DateTime.now().day) {
         await ref.read(summaryDbProvider).createSummary(
               Summary(
                 tortillasHechas: 0,
@@ -76,7 +78,7 @@ class SalesScreen extends ConsumerWidget {
             return const SizedBox(
               height: double.infinity,
               width: double.infinity,
-              child: CircularProgressIndicator(),
+              child: Center(child: CircularProgressIndicator()),
             );
           }
           return Scaffold(
@@ -123,9 +125,9 @@ class SalesScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 15),
                     CustomTextFormField(
-                      onChanage: (p0) {
+                      onChanage: (p0) async {
                         if (InputValidator.numberValidator(p0) == null) {
-                          ref.read(summaryDbProvider).updateSummary(
+                          await ref.read(summaryDbProvider).updateSummary(
                                 lastSummary.copyWith(
                                   tortillasSobrantes: int.parse(p0),
                                 ),
@@ -168,10 +170,8 @@ class SalesScreen extends ConsumerWidget {
                       onChanage: (p0) {
                         if (InputValidator.numberValidator(p0) == null) {
                           ref.read(summaryDbProvider).updateSummary(
-                                lastSummary.copyWith(
-                                  tortillasVendidasTienda: int.parse(p0),
-                                ),
-                              );
+                              lastSummary.copyWith(
+                                  tortillasVendidasTienda: int.parse(p0)));
                         }
                       },
                       controller: _controllerTortillasVenidasTiendas,

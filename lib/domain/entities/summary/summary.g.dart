@@ -62,7 +62,7 @@ const SummarySchema = CollectionSchema(
   serialize: _summarySerialize,
   deserialize: _summaryDeserialize,
   deserializeProp: _summaryDeserializeProp,
-  idName: r'id',
+  idName: r'summaryId',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -105,6 +105,7 @@ Summary _summaryDeserialize(
 ) {
   final object = Summary(
     date: reader.readDateTime(offsets[0]),
+    summaryId: id,
     tortillasHechas: reader.readLong(offsets[1]),
     tortillasSobrantes: reader.readLong(offsets[2]),
     tortillasVendidas: reader.readLong(offsets[3]),
@@ -145,7 +146,7 @@ P _summaryDeserializeProp<P>(
 }
 
 Id _summaryGetId(Summary object) {
-  return object.id;
+  return object.summaryId;
 }
 
 List<IsarLinkBase<dynamic>> _summaryGetLinks(Summary object) {
@@ -155,7 +156,7 @@ List<IsarLinkBase<dynamic>> _summaryGetLinks(Summary object) {
 void _summaryAttach(IsarCollection<dynamic> col, Id id, Summary object) {}
 
 extension SummaryQueryWhereSort on QueryBuilder<Summary, Summary, QWhere> {
-  QueryBuilder<Summary, Summary, QAfterWhere> anyId() {
+  QueryBuilder<Summary, Summary, QAfterWhere> anySummaryId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
@@ -163,66 +164,70 @@ extension SummaryQueryWhereSort on QueryBuilder<Summary, Summary, QWhere> {
 }
 
 extension SummaryQueryWhere on QueryBuilder<Summary, Summary, QWhereClause> {
-  QueryBuilder<Summary, Summary, QAfterWhereClause> idEqualTo(Id id) {
+  QueryBuilder<Summary, Summary, QAfterWhereClause> summaryIdEqualTo(
+      Id summaryId) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
+        lower: summaryId,
+        upper: summaryId,
       ));
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<Summary, Summary, QAfterWhereClause> summaryIdNotEqualTo(
+      Id summaryId) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(upper: summaryId, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(lower: summaryId, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(lower: summaryId, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(upper: summaryId, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<Summary, Summary, QAfterWhereClause> summaryIdGreaterThan(
+      Id summaryId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
+        IdWhereClause.greaterThan(lower: summaryId, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<Summary, Summary, QAfterWhereClause> summaryIdLessThan(
+      Id summaryId,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
+        IdWhereClause.lessThan(upper: summaryId, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
+  QueryBuilder<Summary, Summary, QAfterWhereClause> summaryIdBetween(
+    Id lowerSummaryId,
+    Id upperSummaryId, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
+        lower: lowerSummaryId,
         includeLower: includeLower,
-        upper: upperId,
+        upper: upperSummaryId,
         includeUpper: includeUpper,
       ));
     });
@@ -284,42 +289,43 @@ extension SummaryQueryFilter
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<Summary, Summary, QAfterFilterCondition> summaryIdEqualTo(
+      Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
+        property: r'summaryId',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<Summary, Summary, QAfterFilterCondition> summaryIdGreaterThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'id',
+        property: r'summaryId',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterFilterCondition> idLessThan(
+  QueryBuilder<Summary, Summary, QAfterFilterCondition> summaryIdLessThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'id',
+        property: r'summaryId',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterFilterCondition> idBetween(
+  QueryBuilder<Summary, Summary, QAfterFilterCondition> summaryIdBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -327,7 +333,7 @@ extension SummaryQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
+        property: r'summaryId',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -842,15 +848,15 @@ extension SummaryQuerySortThenBy
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterSortBy> thenById() {
+  QueryBuilder<Summary, Summary, QAfterSortBy> thenBySummaryId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(r'summaryId', Sort.asc);
     });
   }
 
-  QueryBuilder<Summary, Summary, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<Summary, Summary, QAfterSortBy> thenBySummaryIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(r'summaryId', Sort.desc);
     });
   }
 
@@ -997,9 +1003,9 @@ extension SummaryQueryWhereDistinct
 
 extension SummaryQueryProperty
     on QueryBuilder<Summary, Summary, QQueryProperty> {
-  QueryBuilder<Summary, int, QQueryOperations> idProperty() {
+  QueryBuilder<Summary, int, QQueryOperations> summaryIdProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'summaryId');
     });
   }
 

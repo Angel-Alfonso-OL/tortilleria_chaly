@@ -10,7 +10,7 @@ class ImpDbSummary extends SummaryCRUD {
   @override
   Future<void> createSummary(Summary value) async {
     await isarConnectivity.writeTxn(() async {
-      await isarConnectivity.summarys.put(value);
+       isarConnectivity.summarys.put(value);
     });
   }
 
