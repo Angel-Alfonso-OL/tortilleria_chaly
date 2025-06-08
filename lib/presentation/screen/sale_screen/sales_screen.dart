@@ -100,13 +100,15 @@ class SalesScreen extends ConsumerWidget {
                     const Divider(color: darkBlue),
                     const SizedBox(height: 15),
                     CustomTextFormField(
-                      onChanage: (p0) {
+                      onChanage: (p0) async{
                         if (InputValidator.numberValidator(p0) == null) {
-                          ref.read(summaryDbProvider).updateSummary(
+                        await  ref.read(summaryDbProvider).updateSummary(
                                 lastSummary.copyWith(
                                   tortillasHechas: int.parse(p0),
                                 ),
                               );
+                              final a = await ref.read(summaryDbProvider).getAllSummary();
+                              lastSummary = a.last;
                         }
                       },
                       controller: _controllerTortillasHechas,
@@ -123,6 +125,8 @@ class SalesScreen extends ConsumerWidget {
                                   tortillasSobrantes: int.parse(p0),
                                 ),
                               );
+                              final a = await ref.read(summaryDbProvider).getAllSummary();
+                              lastSummary = a.last;
                         }
                       },
                       controller: _controllerTortillasSobrantes,
@@ -142,13 +146,15 @@ class SalesScreen extends ConsumerWidget {
                     const Divider(color: darkBlue),
                     const SizedBox(height: 15),
                     CustomTextFormField(
-                      onChanage: (p0) {
+                      onChanage: (p0) async{
                         if (InputValidator.numberValidator(p0) == null) {
-                          ref.read(summaryDbProvider).updateSummary(
+                         await ref.read(summaryDbProvider).updateSummary(
                                 lastSummary.copyWith(
                                   tortillasVendidasEspeciales: int.parse(p0),
                                 ),
                               );
+                              final a = await ref.read(summaryDbProvider).getAllSummary();
+                              lastSummary = a.last;
                         }
                       },
                       controller: _controllerTortillasVenidasEspeciales,
@@ -158,11 +164,13 @@ class SalesScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 15),
                     CustomTextFormField(
-                      onChanage: (p0) {
+                      onChanage: (p0) async{
                         if (InputValidator.numberValidator(p0) == null) {
-                          ref.read(summaryDbProvider).updateSummary(
+                         await ref.read(summaryDbProvider).updateSummary(
                               lastSummary.copyWith(
                                   tortillasVendidasTienda: int.parse(p0)));
+                                  final a = await ref.read(summaryDbProvider).getAllSummary();
+                              lastSummary = a.last;
                         }
                       },
                       controller: _controllerTortillasVenidasTiendas,
