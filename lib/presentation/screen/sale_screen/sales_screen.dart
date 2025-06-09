@@ -19,6 +19,11 @@ class SalesScreen extends ConsumerWidget {
 
   late Summary lastSummary;
 
+  Future<void> updateLastSummary(WidgetRef ref) async {
+    final listSummary = await ref.read(summaryDbProvider).getAllSummary();
+    lastSummary = listSummary.last;
+  }
+
   Future<void> updateSummary(WidgetRef ref) async {
     final a = await ref.read(summaryDbProvider).getAllSummary();
     //Si la lista no esta vacia
@@ -53,8 +58,7 @@ class SalesScreen extends ConsumerWidget {
             ),
           );
     }
-    final listSummary = await ref.read(summaryDbProvider).getAllSummary();
-    lastSummary = listSummary.last;
+    await updateLastSummary(ref);
     _controllerTortillasHechas =
         TextEditingController(text: lastSummary.tortillasHechas.toString());
     _controllerTortillasSobrantes =
@@ -100,15 +104,14 @@ class SalesScreen extends ConsumerWidget {
                     const Divider(color: darkBlue),
                     const SizedBox(height: 15),
                     CustomTextFormField(
-                      onChanage: (p0) async{
+                      onChanage: (p0) async {
                         if (InputValidator.numberValidator(p0) == null) {
-                        await  ref.read(summaryDbProvider).updateSummary(
+                          await ref.read(summaryDbProvider).updateSummary(
                                 lastSummary.copyWith(
                                   tortillasHechas: int.parse(p0),
                                 ),
                               );
-                              final a = await ref.read(summaryDbProvider).getAllSummary();
-                              lastSummary = a.last;
+                          await updateLastSummary(ref);
                         }
                       },
                       controller: _controllerTortillasHechas,
@@ -125,8 +128,7 @@ class SalesScreen extends ConsumerWidget {
                                   tortillasSobrantes: int.parse(p0),
                                 ),
                               );
-                              final a = await ref.read(summaryDbProvider).getAllSummary();
-                              lastSummary = a.last;
+                          await updateLastSummary(ref);
                         }
                       },
                       controller: _controllerTortillasSobrantes,
@@ -146,15 +148,14 @@ class SalesScreen extends ConsumerWidget {
                     const Divider(color: darkBlue),
                     const SizedBox(height: 15),
                     CustomTextFormField(
-                      onChanage: (p0) async{
+                      onChanage: (p0) async {
                         if (InputValidator.numberValidator(p0) == null) {
-                         await ref.read(summaryDbProvider).updateSummary(
+                          await ref.read(summaryDbProvider).updateSummary(
                                 lastSummary.copyWith(
                                   tortillasVendidasEspeciales: int.parse(p0),
                                 ),
                               );
-                              final a = await ref.read(summaryDbProvider).getAllSummary();
-                              lastSummary = a.last;
+                          await updateLastSummary(ref);
                         }
                       },
                       controller: _controllerTortillasVenidasEspeciales,
@@ -164,13 +165,12 @@ class SalesScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 15),
                     CustomTextFormField(
-                      onChanage: (p0) async{
+                      onChanage: (p0) async {
                         if (InputValidator.numberValidator(p0) == null) {
-                         await ref.read(summaryDbProvider).updateSummary(
+                          await ref.read(summaryDbProvider).updateSummary(
                               lastSummary.copyWith(
                                   tortillasVendidasTienda: int.parse(p0)));
-                                  final a = await ref.read(summaryDbProvider).getAllSummary();
-                              lastSummary = a.last;
+                          await updateLastSummary(ref);
                         }
                       },
                       controller: _controllerTortillasVenidasTiendas,
@@ -179,7 +179,7 @@ class SalesScreen extends ConsumerWidget {
                       funcionValidadora: InputValidator.numberValidator,
                     ),
                     const SizedBox(height: 30),
-                    const _RowBottons(),
+                    _RowBottons(lastSummary: lastSummary,),
                   ],
                 ),
               ),

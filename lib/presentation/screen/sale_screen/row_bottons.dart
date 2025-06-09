@@ -1,20 +1,22 @@
 part of 'sales_screen.dart';
 
-class _RowBottons extends StatelessWidget {
-  const _RowBottons();
+class _RowBottons extends ConsumerWidget {
+  final Summary lastSummary;
+
+  _RowBottons({required this.lastSummary});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Column(
       children: [
         Container(
           height: 60,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20), color: darkBlue),
-          child: const Center(
+          child: Center(
             child: Text(
-              "100",
-              style: TextStyle(
+              lastSummary.tortillasVendidas.toString(),
+              style: const TextStyle(
                 color: white,
                 fontSize: 22,
                 fontWeight: FontWeight.w800,
@@ -23,26 +25,31 @@ class _RowBottons extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _CustomFilledButton(value: 1),
-            _CustomFilledButton(value: 2),
-            _CustomFilledButton(value: 5),
-            _CustomFilledButton(value: 10),
+            _CustomFilledButton(value: 1, ref: ref),
+            _CustomFilledButton(value: 2, ref: ref),
+            _CustomFilledButton(value: 5, ref: ref),
+            _CustomFilledButton(
+              value: 10,
+              ref: ref,
+            ),
           ],
         ),
         const SizedBox(height: 10),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _CustomFilledButton(
               value: 1,
               positive: false,
+              ref: ref,
             ),
             _CustomFilledButton(
               value: 5,
               positive: false,
+              ref: ref,
             ),
           ],
         )
@@ -54,13 +61,19 @@ class _RowBottons extends StatelessWidget {
 class _CustomFilledButton extends StatelessWidget {
   final int value;
   final bool positive;
+  WidgetRef ref;
 
-  const _CustomFilledButton({
+  _CustomFilledButton({
+    required this.ref,
     required this.value,
     this.positive = true,
   });
 
-  void _changeValue() {}
+  void _changeValue() {
+    if(positive){
+      ref.read(summaryDbProvider)
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
