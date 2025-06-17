@@ -6,13 +6,11 @@ import 'package:tortilleria_chaly/domain/entities/summary/summary.dart';
 class IsarDbConnection {
   late final Isar isarConexion;
 
-  Future<Isar> openDB() async {
+  Future<void> openDB() async {
     final dir = await getApplicationDocumentsDirectory();
     isarConexion = await Isar.open(
       [ClientSchema, SummarySchema],
       directory: dir.path,
     );
-
-    return isarConexion;
   }
 }

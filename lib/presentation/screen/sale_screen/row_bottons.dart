@@ -28,13 +28,10 @@ class _RowBottons extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _CustomFilledButton(value: 1, ref: ref),
-            _CustomFilledButton(value: 2, ref: ref),
-            _CustomFilledButton(value: 5, ref: ref),
-            _CustomFilledButton(
-              value: 10,
-              ref: ref,
-            ),
+            _CustomFilledButton(value: 1, lastSummary: lastSummary),
+            _CustomFilledButton(value: 2, lastSummary: lastSummary),
+            _CustomFilledButton(value: 5, lastSummary: lastSummary),
+            _CustomFilledButton(value: 10, lastSummary: lastSummary),
           ],
         ),
         const SizedBox(height: 10),
@@ -44,12 +41,12 @@ class _RowBottons extends ConsumerWidget {
             _CustomFilledButton(
               value: 1,
               positive: false,
-              ref: ref,
+              lastSummary: lastSummary,
             ),
             _CustomFilledButton(
               value: 5,
               positive: false,
-              ref: ref,
+              lastSummary: lastSummary,
             ),
           ],
         )
@@ -58,25 +55,19 @@ class _RowBottons extends ConsumerWidget {
   }
 }
 
-class _CustomFilledButton extends StatelessWidget {
+class _CustomFilledButton extends ConsumerWidget {
   final int value;
   final bool positive;
-  WidgetRef ref;
+  final Summary lastSummary;
 
   _CustomFilledButton({
-    required this.ref,
+    required this.lastSummary,
     required this.value,
     this.positive = true,
   });
 
-  void _changeValue() {
-    if(positive){
-     // ref.read(summaryDbProvider).
-    }
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return FilledButton.icon(
       style: FilledButton.styleFrom(
         backgroundColor: positive ? pink : grey,
@@ -90,7 +81,7 @@ class _CustomFilledButton extends StatelessWidget {
               "- $value",
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800),
             ),
-      onPressed: _changeValue,
+      onPressed: () {},
     );
   }
 }

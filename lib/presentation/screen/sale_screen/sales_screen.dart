@@ -9,14 +9,11 @@ import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dar
 part 'row_bottons.dart';
 
 class SalesScreen extends ConsumerWidget {
+
   late TextEditingController _controllerTortillasHechas;
-
   late TextEditingController _controllerTortillasSobrantes;
-
   late TextEditingController _controllerTortillasVenidasEspeciales;
-
   late TextEditingController _controllerTortillasVenidasTiendas;
-
   late Summary lastSummary;
 
   Future<void> updateLastSummary(WidgetRef ref) async {
