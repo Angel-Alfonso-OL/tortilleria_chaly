@@ -2,68 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tortilleria_chaly/config/colors.dart';
 import 'package:tortilleria_chaly/domain/entities/summary/summary.dart';
-import 'package:tortilleria_chaly/presentation/provider/summary_db_provider.dart';
+import 'package:tortilleria_chaly/presentation/provider/last_summary_provider.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/custom_text_form_field.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 
 part 'row_bottons.dart';
 
 class SalesScreen extends ConsumerWidget {
-
   late TextEditingController _controllerTortillasHechas;
   late TextEditingController _controllerTortillasSobrantes;
   late TextEditingController _controllerTortillasVenidasEspeciales;
   late TextEditingController _controllerTortillasVenidasTiendas;
   late Summary lastSummary;
 
-  Future<void> updateLastSummary(WidgetRef ref) async {
-    final listSummary = await ref.read(summaryDbProvider).getAllSummary();
-    lastSummary = listSummary.last;
-  }
-
   Future<void> updateSummary(WidgetRef ref) async {
-    final a = await ref.read(summaryDbProvider).getAllSummary();
-    //Si la lista no esta vacia
-    if (a.isNotEmpty) {
-      // Si la ultima fecha es diferente a la actual
-      if (a.last.date.day != DateTime.now().day) {
-        await ref.read(summaryDbProvider).createSummary(
-              Summary(
-                tortillasHechas: 0,
-                tortillasSobrantes: 0,
-                tortillasVendidas: 0,
-                tortillasVendidasEspeciales: 0,
-                tortillasVendidasTienda: 0,
-                totalFiados: 0,
-                totalPagados: 0,
-                date: DateTime.now(),
-              ),
-            );
-      }
-      //Si la lista esta vacia
-    } else {
-      await ref.read(summaryDbProvider).createSummary(
-            Summary(
-              tortillasHechas: 0,
-              tortillasSobrantes: 0,
-              tortillasVendidas: 0,
-              tortillasVendidasEspeciales: 0,
-              tortillasVendidasTienda: 0,
-              totalFiados: 0,
-              totalPagados: 0,
-              date: DateTime.now(),
-            ),
-          );
-    }
-    await updateLastSummary(ref);
-    _controllerTortillasHechas =
-        TextEditingController(text: lastSummary.tortillasHechas.toString());
-    _controllerTortillasSobrantes =
-        TextEditingController(text: lastSummary.tortillasSobrantes.toString());
+    await ref.read(lastSummaryProvider.notifier).discoverLastSummary();
+
+    _controllerTortillasHechas = TextEditingController(
+        text: ref.read(lastSummaryProvider).tortillasHechas.toString());
+    _controllerTortillasSobrantes = TextEditingController(
+        text: ref.read(lastSummaryProvider).tortillasHechas.toString());
     _controllerTortillasVenidasEspeciales = TextEditingController(
-        text: lastSummary.tortillasVendidasEspeciales.toString());
+        text: ref.read(lastSummaryProvider).tortillasHechas.toString());
     _controllerTortillasVenidasTiendas = TextEditingController(
-        text: lastSummary.tortillasVendidasTienda.toString());
+        text: ref.read(lastSummaryProvider).tortillasHechas.toString());
   }
 
   @override
@@ -103,12 +65,12 @@ class SalesScreen extends ConsumerWidget {
                     CustomTextFormField(
                       onChanage: (p0) async {
                         if (InputValidator.numberValidator(p0) == null) {
-                          await ref.read(summaryDbProvider).updateSummary(
-                                lastSummary.copyWith(
-                                  tortillasHechas: int.parse(p0),
-                                ),
-                              );
-                          await updateLastSummary(ref);
+                          await ref
+                              .read(lastSummaryProvider.notifier)
+                              .insertNewSummary(
+                                  ref.read(lastSummaryProvider).copyWith(
+                                        tortillasHechas: int.parse(p0),
+                                      ));
                         }
                       },
                       controller: _controllerTortillasHechas,
@@ -120,12 +82,12 @@ class SalesScreen extends ConsumerWidget {
                     CustomTextFormField(
                       onChanage: (p0) async {
                         if (InputValidator.numberValidator(p0) == null) {
-                          await ref.read(summaryDbProvider).updateSummary(
-                                lastSummary.copyWith(
-                                  tortillasSobrantes: int.parse(p0),
-                                ),
-                              );
-                          await updateLastSummary(ref);
+                          await ref
+                              .read(lastSummaryProvider.notifier)
+                              .insertNewSummary(
+                                  ref.read(lastSummaryProvider).copyWith(
+                                        tortillasSobrantes: int.parse(p0),
+                                      ));
                         }
                       },
                       controller: _controllerTortillasSobrantes,
@@ -147,12 +109,13 @@ class SalesScreen extends ConsumerWidget {
                     CustomTextFormField(
                       onChanage: (p0) async {
                         if (InputValidator.numberValidator(p0) == null) {
-                          await ref.read(summaryDbProvider).updateSummary(
-                                lastSummary.copyWith(
-                                  tortillasVendidasEspeciales: int.parse(p0),
-                                ),
-                              );
-                          await updateLastSummary(ref);
+                          await ref
+                              .read(lastSummaryProvider.notifier)
+                              .insertNewSummary(
+                                  ref.read(lastSummaryProvider).copyWith(
+                                        tortillasVendidasEspeciales:
+                                            int.parse(p0),
+                                      ));
                         }
                       },
                       controller: _controllerTortillasVenidasEspeciales,
@@ -164,10 +127,12 @@ class SalesScreen extends ConsumerWidget {
                     CustomTextFormField(
                       onChanage: (p0) async {
                         if (InputValidator.numberValidator(p0) == null) {
-                          await ref.read(summaryDbProvider).updateSummary(
-                              lastSummary.copyWith(
-                                  tortillasVendidasTienda: int.parse(p0)));
-                          await updateLastSummary(ref);
+                          await ref
+                              .read(lastSummaryProvider.notifier)
+                              .insertNewSummary(
+                                  ref.read(lastSummaryProvider).copyWith(
+                                        tortillasVendidasTienda: int.parse(p0),
+                                      ));
                         }
                       },
                       controller: _controllerTortillasVenidasTiendas,
@@ -176,7 +141,7 @@ class SalesScreen extends ConsumerWidget {
                       funcionValidadora: InputValidator.numberValidator,
                     ),
                     const SizedBox(height: 30),
-                    _RowBottons(lastSummary: lastSummary,),
+                    //_RowBottons(lastSummary: lastSummary),
                   ],
                 ),
               ),
