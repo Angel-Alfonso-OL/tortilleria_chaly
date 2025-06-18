@@ -56,6 +56,7 @@ class LastSummaryProvider extends StateNotifier<Summary> {
             ),
           );
     }
+    
     await updateLastSummary();
   }
 }
