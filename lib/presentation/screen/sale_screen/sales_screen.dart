@@ -141,7 +141,7 @@ class SalesScreen extends ConsumerWidget {
                       funcionValidadora: InputValidator.numberValidator,
                     ),
                     const SizedBox(height: 30),
-                    //_RowBottons(lastSummary: lastSummary),
+                    _RowBottons(),
                   ],
                 ),
               ),

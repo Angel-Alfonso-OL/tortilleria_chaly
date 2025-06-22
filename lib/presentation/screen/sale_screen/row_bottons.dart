@@ -1,10 +1,6 @@
 part of 'sales_screen.dart';
 
 class _RowBottons extends ConsumerWidget {
-  final Summary lastSummary;
-
-  _RowBottons({required this.lastSummary});
-
   @override
   Widget build(BuildContext context, ref) {
     return Column(
@@ -15,7 +11,7 @@ class _RowBottons extends ConsumerWidget {
               borderRadius: BorderRadius.circular(20), color: darkBlue),
           child: Center(
             child: Text(
-              lastSummary.tortillasVendidas.toString(),
+              ref.watch(lastSummaryProvider).tortillasVendidas.toString(),
               style: const TextStyle(
                 color: white,
                 fontSize: 22,
@@ -28,10 +24,10 @@ class _RowBottons extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _CustomFilledButton(value: 1, lastSummary: lastSummary),
-            _CustomFilledButton(value: 2, lastSummary: lastSummary),
-            _CustomFilledButton(value: 5, lastSummary: lastSummary),
-            _CustomFilledButton(value: 10, lastSummary: lastSummary),
+            _CustomFilledButton(value: 1),
+            _CustomFilledButton(value: 2),
+            _CustomFilledButton(value: 5),
+            _CustomFilledButton(value: 10),
           ],
         ),
         const SizedBox(height: 10),
@@ -41,12 +37,10 @@ class _RowBottons extends ConsumerWidget {
             _CustomFilledButton(
               value: 1,
               positive: false,
-              lastSummary: lastSummary,
             ),
             _CustomFilledButton(
               value: 5,
               positive: false,
-              lastSummary: lastSummary,
             ),
           ],
         )
@@ -58,10 +52,8 @@ class _RowBottons extends ConsumerWidget {
 class _CustomFilledButton extends ConsumerWidget {
   final int value;
   final bool positive;
-  final Summary lastSummary;
 
   _CustomFilledButton({
-    required this.lastSummary,
     required this.value,
     this.positive = true,
   });
@@ -81,7 +73,25 @@ class _CustomFilledButton extends ConsumerWidget {
               "- $value",
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800),
             ),
-      onPressed: () {},
+      onPressed: () {
+        if (positive) {
+          ref.read(lastSummaryProvider.notifier).insertNewSummary(
+                ref.read(lastSummaryProvider).copyWith(
+                      tortillasVendidas:
+                          ref.read(lastSummaryProvider).tortillasVendidas +
+                              value,
+                    ),
+              );
+        } else {
+          ref.read(lastSummaryProvider.notifier).insertNewSummary(
+                ref.read(lastSummaryProvider).copyWith(
+                      tortillasVendidas:
+                          ref.read(lastSummaryProvider).tortillasVendidas -
+                              value,
+                    ),
+              );
+        }
+      },
     );
   }
 }
