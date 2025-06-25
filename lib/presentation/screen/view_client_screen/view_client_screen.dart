@@ -201,9 +201,7 @@ class ViewClientScreen extends ConsumerWidget {
                                         totalPagados: ref
                                                 .read(lastSummaryProvider)
                                                 .totalPagados +
-                                            (ref
-                                                    .read(lastSummaryProvider)
-                                                    .totalPagados +
+                                            (snapshot.data!.money -
                                                 int.parse(
                                                     _controller.value.text))),
                                   );
@@ -214,14 +212,16 @@ class ViewClientScreen extends ConsumerWidget {
                                       lastSale: DateTime.now(),
                                     ),
                                   );
-                              await ref.read(lastSummaryProvider).copyWith(
-                                  totalFiados: ref
-                                          .read(lastSummaryProvider)
-                                          .totalFiados +
-                                      (ref
-                                              .read(lastSummaryProvider)
-                                              .totalFiados +
-                                          int.parse(_controller.value.text)));
+                              await ref
+                                  .read(lastSummaryProvider.notifier)
+                                  .insertNewSummary(
+                                    ref.read(lastSummaryProvider).copyWith(
+                                        totalFiados: ref
+                                                .read(lastSummaryProvider)
+                                                .totalFiados +
+                                            (int.parse(_controller.value.text) -
+                                                snapshot.data!.money)),
+                                  );
                             }
                             ref.invalidate(clientDbProvider);
                             context.pop();

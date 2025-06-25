@@ -21,11 +21,11 @@ class SalesScreen extends ConsumerWidget {
     _controllerTortillasHechas = TextEditingController(
         text: ref.read(lastSummaryProvider).tortillasHechas.toString());
     _controllerTortillasSobrantes = TextEditingController(
-        text: ref.read(lastSummaryProvider).tortillasHechas.toString());
+        text: ref.read(lastSummaryProvider).tortillasSobrantes.toString());
     _controllerTortillasVenidasEspeciales = TextEditingController(
-        text: ref.read(lastSummaryProvider).tortillasHechas.toString());
+        text: ref.read(lastSummaryProvider).tortillasVendidasEspeciales.toString());
     _controllerTortillasVenidasTiendas = TextEditingController(
-        text: ref.read(lastSummaryProvider).tortillasHechas.toString());
+        text: ref.read(lastSummaryProvider).tortillasVendidasTienda.toString());
   }
 
   @override
