@@ -17,46 +17,24 @@ class LastSummaryProvider extends StateNotifier<Summary> {
     state = listSumamry.last;
   }
 
-  Future<void> insertNewSummary(Summary newSummary) async{
+  Future<void> insertNewSummary(Summary newSummary) async {
     await ref.read(summaryDbProvider).createSummary(newSummary);
     await updateLastSummary();
   }
 
-  Future<void> discoverLastSummary() async{
-     final a = await ref.read(summaryDbProvider).getAllSummary();
+  Future<void> discoverLastSummary() async {
+    final a = await ref.read(summaryDbProvider).getAllSummary();
     //Si la lista no esta vacia
     if (a.isNotEmpty) {
       // Si la ultima fecha es diferente a la actual
       if (a.last.date.day != DateTime.now().day) {
-        await insertNewSummary(
-              Summary(
-                tortillasHechas: 0,
-                tortillasSobrantes: 0,
-                tortillasVendidas: 0,
-                tortillasVendidasEspeciales: 0,
-                tortillasVendidasTienda: 0,
-                totalFiados: 0,
-                totalPagados: 0,
-                date: DateTime.now(),
-              ),
-            );
+        await insertNewSummary(Summary.defaulSummary);
       }
       //Si la lista esta vacia
     } else {
-      await insertNewSummary(
-            Summary(
-              tortillasHechas: 0,
-              tortillasSobrantes: 0,
-              tortillasVendidas: 0,
-              tortillasVendidasEspeciales: 0,
-              tortillasVendidasTienda: 0,
-              totalFiados: 0,
-              totalPagados: 0,
-              date: DateTime.now(),
-            ),
-          );
+      await insertNewSummary(Summary.defaulSummary);
     }
-    
+
     await updateLastSummary();
   }
 }
