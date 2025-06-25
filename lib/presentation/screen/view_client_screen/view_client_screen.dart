@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tortilleria_chaly/config/colors.dart';
 import 'package:tortilleria_chaly/presentation/provider/client_db_provider.dart';
+import 'package:tortilleria_chaly/presentation/provider/last_summary_provider.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/custom_text_form_field.dart';
 import 'package:tortilleria_chaly/presentation/screen/widget/input_validator.dart';
 
@@ -193,6 +194,19 @@ class ViewClientScreen extends ConsumerWidget {
                                       lastPay: DateTime.now(),
                                     ),
                                   );
+                              await ref
+                                  .read(lastSummaryProvider.notifier)
+                                  .insertNewSummary(
+                                    ref.read(lastSummaryProvider).copyWith(
+                                        totalPagados: ref
+                                                .read(lastSummaryProvider)
+                                                .totalPagados +
+                                            (ref
+                                                    .read(lastSummaryProvider)
+                                                    .totalPagados +
+                                                int.parse(
+                                                    _controller.value.text))),
+                                  );
                             } else {
                               await ref.read(clientDbProvider).updateClient(
                                     snapshot.data!.copyWith(
@@ -200,6 +214,14 @@ class ViewClientScreen extends ConsumerWidget {
                                       lastSale: DateTime.now(),
                                     ),
                                   );
+                              await ref.read(lastSummaryProvider).copyWith(
+                                  totalFiados: ref
+                                          .read(lastSummaryProvider)
+                                          .totalFiados +
+                                      (ref
+                                              .read(lastSummaryProvider)
+                                              .totalFiados +
+                                          int.parse(_controller.value.text)));
                             }
                             ref.invalidate(clientDbProvider);
                             context.pop();
