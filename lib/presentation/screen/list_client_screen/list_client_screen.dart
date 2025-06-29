@@ -16,36 +16,17 @@ class ListClientScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: darkBlue,
-        title: Container(
-          //color: Colors.red,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: const TextField(
-            cursorColor: white,
-            autocorrect: false,
-            textCapitalization: TextCapitalization.words,
-            style: TextStyle(color: white),
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-              hintStyle: TextStyle(color: white),
-              enabledBorder:
-                  UnderlineInputBorder(borderSide: BorderSide(color: white)),
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: white)),
-              prefix: Icon(
-                Icons.search,
-                color: white,
-              ),
-            ),
-          ),
+        title: const Text(
+          "Lista de Clientes",
+          style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
       ),
       body: FutureBuilder(
         future: ref.watch(clientDbProvider).getAllClients(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-            
-            );
+            return const Center();
           }
           if (snapshot.data!.isEmpty || snapshot.data == null) {
             return const Center(
