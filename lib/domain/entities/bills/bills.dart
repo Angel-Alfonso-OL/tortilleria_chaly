@@ -1,5 +1,7 @@
 import 'package:isar/isar.dart';
 
+part 'bills.g.dart';
+
 @collection
 class Bills {
   final Id billsId;
