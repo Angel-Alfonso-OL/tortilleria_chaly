@@ -4,11 +4,11 @@ import 'package:isar/isar.dart';
 import 'package:tortilleria_chaly/domain/datasourse/bills_crud.dart';
 import 'package:tortilleria_chaly/domain/entities/bills/bills.dart';
 
-class ImpBillsCRUD implements BillsCRUD{
+class ImpDbBills implements BillsCRUD{
 
   final Isar isarConnectivity;
 
-  ImpBillsCRUD({required this.isarConnectivity});
+  ImpDbBills(this.isarConnectivity);
  
   @override
   Future<void> createBills(Bills client) async{

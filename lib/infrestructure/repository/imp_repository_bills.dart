@@ -5,7 +5,7 @@ import 'package:tortilleria_chaly/domain/repository/respository_bills.dart';
 class ImpRepositoryBills implements RespositoryBills {
   final BillsCRUD dataBase;
 
-  ImpRepositoryBills({required this.dataBase});
+  ImpRepositoryBills( this.dataBase);
 
   @override
   Future<void> createBills(Bills bills) async {

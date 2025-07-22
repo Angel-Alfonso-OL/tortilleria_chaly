@@ -45,7 +45,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 children: [
                   const ListClientScreen(),
                   SalesScreen(),
-                  const BillsScreen(),
+                  BillsScreen(),
                 ]),
             bottomNavigationBar: _CustomBottonNavigatorBar(
               pageController: _pageController,
