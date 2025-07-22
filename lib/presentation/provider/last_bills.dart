@@ -1,40 +1,40 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tortilleria_chaly/domain/entities/summary/summary.dart';
-import 'package:tortilleria_chaly/presentation/provider/summary_db_provider.dart';
+import 'package:tortilleria_chaly/domain/entities/bills/bills.dart';
+import 'package:tortilleria_chaly/presentation/provider/bills_db_provider.dart';
 
 final lastBillsProvider =
-    StateNotifierProvider<LastBillsProvider, Summary>((ref) {
+    StateNotifierProvider<LastBillsProvider, Bills>((ref) {
   return LastBillsProvider(ref);
 });
 
-class LastBillsProvider extends StateNotifier<Summary> {
+class LastBillsProvider extends StateNotifier<Bills> {
   final Ref ref;
 
-  LastBillsProvider(this.ref) : super(Summary.defaulSummary);
+  LastBillsProvider(this.ref) : super(Bills.defaultBills);
 
-  Future<void> updateLastSummary() async {
-    final listSumamry = await ref.read(summaryDbProvider).getAllSummary();
-    state = listSumamry.last;
+  Future<void> updateLastBills() async {
+    final listBills = await ref.read(billsDbProvider).getAllBills();
+    state = listBills.last;
   }
 
-  Future<void> insertNewSummary(Summary newSummary) async {
-    await ref.read(summaryDbProvider).createSummary(newSummary);
-    await updateLastSummary();
+  Future<void> insertNewBills(Bills newBills) async {
+    await ref.read(billsDbProvider).createBills(newBills);
+    await updateLastBills();
   }
 
-  Future<void> discoverLastSummary() async {
-    final a = await ref.read(summaryDbProvider).getAllSummary();
+  Future<void> discoverLastBills() async {
+    final a = await ref.read(billsDbProvider).getAllBills();
     //Si la lista no esta vacia
     if (a.isNotEmpty) {
       // Si la ultima fecha es diferente a la actual
       if (a.last.date.day != DateTime.now().day) {
-        await insertNewSummary(Summary.defaulSummary);
+        await insertNewBills(Bills.defaultBills);
       }
       //Si la lista esta vacia
     } else {
-      await insertNewSummary(Summary.defaulSummary);
+      await insertNewBills(Bills.defaultBills);
     }
 
-    await updateLastSummary();
+    await updateLastBills();
   }
 }
