@@ -1,5 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tortilleria_chaly/domain/entities/bills/bills.dart';
 import 'package:tortilleria_chaly/domain/entities/client/client.dart';
 import 'package:tortilleria_chaly/domain/entities/summary/summary.dart';
 
@@ -9,7 +10,11 @@ class IsarDbConnection {
   Future<void> openDB() async {
     final dir = await getApplicationDocumentsDirectory();
     isarConexion = await Isar.open(
-      [ClientSchema, SummarySchema],
+      [
+        ClientSchema,
+        SummarySchema,
+        BillsSchema,
+      ],
       directory: dir.path,
     );
   }

@@ -30,14 +30,14 @@ class Bills {
     luz: 0,
   );
 
-  Bills copyWith(
+  Bills copyWith({
     DateTime? date,
     int? compras,
     int? gas,
     int? comida,
     int? luz,
     int? salario,
-  ) {
+  }) {
     return Bills(
       billsId: billsId,
       date: date ?? this.date,
